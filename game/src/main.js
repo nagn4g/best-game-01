@@ -40,5 +40,5 @@ function step(dt){
  if(input.keys.has('m')){s.muted=!s.muted;input.keys.delete('m')}
  if(input.keys.has('p')||input.keys.has('escape')){if(s.phase==='playing'){s.phase='paused';showPause()}else if(s.phase==='paused'){s.phase='playing';hideOverlay()}input.keys.delete('p');input.keys.delete('escape')}
 }
-function frame(now){const elapsed=Math.min(.1,(now-last)/1000);last=now;acc+=elapsed;while(acc>=STEP){step(s.slowmo>0?STEP*.35:STEP);acc-=STEP}render(ctx,s,pool);if(s.shot&&!window.__shotReady){updateHud(s);if(s.phase==='title')showTitle(s);if(s.phase==='draft'&&!document.querySelector('.card'))showDraft(s);if(s.phase==='victory')showEnd(s,true);requestAnimationFrame(()=>{window.__shotReady=true})}requestAnimationFrame(frame)}
+function frame(now){const elapsed=Math.min(.1,(now-last)/1000);last=now;acc+=elapsed;while(acc>=STEP){step(s.slowmo>0?STEP*.35:STEP);acc-=STEP}render(ctx,s,pool);if(s.shot&&!window.__shotReady){updateHud(s);if(s.phase==='title')showTitle(s);if(s.phase==='draft'&&!document.querySelector('.card'))showDraft(s);if(s.phase==='victory')showEnd(s,true);if(s.phase==='gameover')showEnd(s);requestAnimationFrame(()=>{window.__shotReady=true})}requestAnimationFrame(frame)}
 requestAnimationFrame(frame);
